@@ -1,6 +1,5 @@
 var images = ["px1.jpg","px2.jpg","px3.jpg","px4.jpg","px5.jpg"]
 
-var left = false
 var prevX = 1000
 const throttleFunction=(func, delay)=>{
     let prev = 0; 
@@ -27,10 +26,16 @@ document.querySelector("#center").addEventListener("mousemove",
         var img = document.createElement('img');
         // img.setAttribute("src",'px2.jpg')
         img.setAttribute("src",images[Math.floor(Math.random()*5)])
+        const rotationAngle = Math.random() * 60 - 30; // Random value between -30 and 30
 
+        // Apply the rotation using CSS transform
+        // div.style.transform = `rotate(${rotationAngle}deg)`;
         div.appendChild(img);
         document.body.appendChild(div);
         if(currX>0){
+            if(rotationAngle<0){
+                div.style.transform = `rotate(${rotationAngle+30}deg)`
+            }
             gsap.to(img,{
                 y:"0",
                 x:"50%",
@@ -69,6 +74,9 @@ document.querySelector("#center").addEventListener("mousemove",
             })
         }
         else{
+            if(rotationAngle>0){
+                div.style.transform = `rotate(${rotationAngle-30}deg)`
+            }
             gsap.to(img,{
                 y:"0",
                 x:"-50%",
@@ -97,6 +105,6 @@ document.querySelector("#center").addEventListener("mousemove",
         
         setTimeout(() => {
             div.remove();
-        }, 2000);
+        }, 1000);
     },400)
 )
